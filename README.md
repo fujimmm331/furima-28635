@@ -1,24 +1,96 @@
-# README
+# テーブル設計
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## users テーブル
 
-Things you may want to cover:
+| Column           | Type               | Options                       |
+| ---------------- | ------------------ | ----------------------------- |
+| nickname         | string             | null: false                   |
+| email            | string             | null: false, unique: true     |
+| password         | encrypted_password | null: false                   |
+| family_name      | string             | null: false                   |
+| first_name       | string             | null: false                   |
+| kana_family_name | string             | null: false                   |
+| kana_first_name  | string             | null: false                   |
+| birthday         | date               | null: false                   |
 
-* Ruby version
+### Association
+has_many :products
+has_many :purchases
+has_many :comments
+has_many :favorites
 
-* System dependencies
 
-* Configuration
+## products テーブル
 
-* Database creation
+| Column             | Type       | Options                       |
+| ------------------ | ---------- | ----------------------------- |
+| name               | string     | null: false                   |
+| explanation        | text       | null: false                   |
+| category_id        | integer    | null: false                   |
+| condition_id       | integer    | null: false                   |
+| delivery_charge_id | integer    | null: false                   |
+| delivery_source_id | integer    | null: false                   |
+| days_to_ship_id    | integer    | null: false                   |
+| price              | integer    | null: false                   |
+| user               | references | null: false,foreign_key: true |
 
-* Database initialization
+### Association
+has_many   :comments
+has_many   :favorites
+has_one    :purchase
+belongs_to :user
 
-* How to run the test suite
 
-* Services (job queues, cache servers, search engines, etc.)
+## comments テーブル
 
-* Deployment instructions
+| Column  | Type       | Options                        |
+| ------- | ---------- | ------------------------------ |
+| text    | text       | null: false                    |
+| user    | references | null: false, foreign_key: true |
+| product | references | null: false, foreign_key: true |
 
-* ...
+### Association
+belongs_to :user
+belongs_to :product
+
+
+## favorites テーブル
+
+| Column   | Type       | Options                        |
+| -------- | ---------- | ------------------------------ |
+| favorite | boolean    | null: false                    |
+| user     | references | null: false, foreign_key: true |
+| product  | references | null: false, foreign_key: true |
+
+### Association
+belongs_to :user
+belongs_to :product
+
+
+## purchases テーブル
+
+| Column   | Type       | Options                        |
+| -------- | ---------- | ------------------------------ |
+| user     | references | null: false, foreign_key: true |
+| product  | references | null: false, foreign_key: true |
+
+### Association
+has_one    :delivery_information
+belongs_to :user
+belongs_to :product
+
+
+## delivery_informations テーブル
+
+| Column           | Type       | Options                       |
+| ---------------- | ---------- | ----------------------------- |
+| postal_code      | string     | null: false                   |
+| prefecture_id    | integer    | null: false                   |
+| municipality     | string     | null: false                   |
+| address          | string     | null: false                   |
+| building         | string     |                               |
+| telephone_number | string     | null: false                   |
+| purchase         | references | null: false,foreign_key: true |
+
+### Association
+belongs_to :purchase
