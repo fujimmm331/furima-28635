@@ -12,4 +12,6 @@ class User < ApplicationRecord
 
   password_vali = /\A(?=.*?[a-z])(?=.*?[\d])[a-z\d]+\z/i.freeze
   validates_format_of :password, with: password_vali
+
+  has_many :products
 end
