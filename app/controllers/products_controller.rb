@@ -18,6 +18,16 @@ class ProductsController < ApplicationController
     end
   end
 
+  def show
+    @user = User.all
+    @product = Product.find(params[:id])
+    @category = Category.data
+    @condition = Condition.data
+    @delivery_charge = DeliveryCharge.data
+    @delivery_source = DeliverySource.data
+    @days_to_ship = DaysToShip.data
+  end
+
   private
 
   def product_params
