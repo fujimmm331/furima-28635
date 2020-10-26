@@ -1,5 +1,5 @@
 class ProductsController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :create, :edit, :create]
+  before_action :authenticate_user!, only: [:new, :create, :edit, :create, :destroy]
   before_action :find_product, only: [:show, :edit, :update, :destroy]
   before_action :protect_user, only: [:edit, :update, :destroy]
 
@@ -35,7 +35,7 @@ class ProductsController < ApplicationController
   end
 
   def destroy
-    @product.delete
+    @product.destroy
     redirect_to root_path
   end
 
