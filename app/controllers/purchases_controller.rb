@@ -1,7 +1,7 @@
 class PurchasesController < ApplicationController
   before_action :authenticate_user!
   before_action :find_product
-  
+  before_action :redirect_to_root
 
   def new
     @purchase_delivery_information = PurchaseDeliveryInformation.new
@@ -26,5 +26,9 @@ class PurchasesController < ApplicationController
     @product = Product.find(params[:product_id])
   end
 
-  
+  def redirect_to_root
+    if current_user.id == @product.user_id
+      redirect_to root_path
+    end
+  end
 end
