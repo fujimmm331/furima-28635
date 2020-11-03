@@ -27,8 +27,11 @@ class PurchasesController < ApplicationController
   end
 
   def redirect_to_root
-    if current_user.id == @product.user_id
+    # 出品者が現在のユーザーと同じ、もしくは既に購入された商品の場合、ルートパスへ遷移する処理
+    product_ids = Purchase.pluck(:product_id) #Purchaseモデルからproduct_idだけを取得
+    if current_user.id == @product.user_id || product_ids.include?(@product.id)
       redirect_to root_path
     end
+    # //出品者が現在のユーザーと同じ、もしくは既に購入された商品の場合、ルートパスへ遷移する処理
   end
 end
