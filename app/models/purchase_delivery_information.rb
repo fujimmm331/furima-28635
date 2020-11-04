@@ -1,8 +1,8 @@
 class PurchaseDeliveryInformation
   include ActiveModel::Model
-  attr_accessor :user, :product, :postal_code, :delivery_source_id, :municipality, :address, :building, :telephone_number, :purchase
+  attr_accessor :user, :product, :postal_code, :delivery_source_id, :municipality, :address, :building, :telephone_number, :purchase, :token
   
-  validates :user, :product, :postal_code, :delivery_source_id, :municipality, :address, :building, 
+  validates :user, :product, :postal_code, :delivery_source_id, :municipality, :address, :token,
             :telephone_number, presence: true
   
   validates_format_of :postal_code, {with: /\A\d{3}[-]\d{4}\z/, message: "must be 7digits and include 「-」" }
