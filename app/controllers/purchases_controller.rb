@@ -10,6 +10,7 @@ class PurchasesController < ApplicationController
   def create
     @purchase_delivery_information = PurchaseDeliveryInformation.new(purchase_params)
     if @purchase_delivery_information.valid?
+      pay_item
       @purchase_delivery_information.save
       redirect_to root_path
     else
@@ -19,7 +20,7 @@ class PurchasesController < ApplicationController
 
   private
   def purchase_params
-    params.require(:purchase_delivery_information).permit(:postal_code, :delivery_source_id, :municipality, :address, :building, :telephone_number, :purchase).merge(user: current_user.id, product: @product.id)
+    params.require(:purchase_delivery_information).permit(:postal_code, :delivery_source_id, :municipality, :address, :building, :telephone_number, :purchase).merge(user: current_user.id, product: @product.id, token: params[:token])
   end
 
   def find_product
@@ -33,5 +34,14 @@ class PurchasesController < ApplicationController
       redirect_to root_path
     end
     # //出品者が現在のユーザーと同じ、もしくは既に購入された商品の場合、ルートパスへ遷移する処理
+  end
+
+  def pay_item
+    Payjp.api_key = ENV["PAYJP_SECRET_KEY"]  
+      Payjp::Charge.create(
+        amount: @product.price,
+        card: purchase_params[:token],
+        currency: 'jpy'
+      )
   end
 end
