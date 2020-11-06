@@ -1,12 +1,12 @@
 class PurchaseDeliveryInformation
   include ActiveModel::Model
   attr_accessor :user, :product, :postal_code, :delivery_source_id, :municipality, :address, :building, :telephone_number, :purchase, :token
-  
+
   validates :user, :product, :postal_code, :delivery_source_id, :municipality, :address, :token,
             :telephone_number, presence: true
-  
-  validates_format_of :postal_code, {with: /\A\d{3}[-]\d{4}\z/, message: "must be 7digits and include 「-」" }
-  validates_format_of :telephone_number, {with: /\A\d{11}\z/, message: "within 11 digits"}
+
+  validates_format_of :postal_code, { with: /\A\d{3}[-]\d{4}\z/, message: 'must be 7digits and include 「-」' }
+  validates_format_of :telephone_number, { with: /\A\d{11}\z/, message: 'within 11 digits' }
 
   validates :delivery_source_id, numericality: { other_than: 1, message: "-- is can't choose" }
 

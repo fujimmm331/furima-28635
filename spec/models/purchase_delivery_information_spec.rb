@@ -9,9 +9,9 @@ RSpec.describe PurchaseDeliveryInformation, type: :model do
     it '建物名が入っていなくても保存できる' do
       expect(@purchasedeliveryinformation).to be_valid
     end
-    
+
     it '全ての値が入っても保存できる' do
-      @purchasedeliveryinformation.building = "アジアビル1F"
+      @purchasedeliveryinformation.building = 'アジアビル1F'
       expect(@purchasedeliveryinformation).to be_valid
     end
 
@@ -24,13 +24,13 @@ RSpec.describe PurchaseDeliveryInformation, type: :model do
     it '郵便番号はハイフンが無いと保存できない' do
       @purchasedeliveryinformation.postal_code = '1234567'
       @purchasedeliveryinformation.valid?
-      expect(@purchasedeliveryinformation.errors.full_messages).to include("Postal code must be 7digits and include 「-」")
+      expect(@purchasedeliveryinformation.errors.full_messages).to include('Postal code must be 7digits and include 「-」')
     end
 
     it '郵便番号は数字が全角だと保存できない' do
       @purchasedeliveryinformation.postal_code = '１２３-４５６７'
       @purchasedeliveryinformation.valid?
-      expect(@purchasedeliveryinformation.errors.full_messages).to include("Postal code must be 7digits and include 「-」")
+      expect(@purchasedeliveryinformation.errors.full_messages).to include('Postal code must be 7digits and include 「-」')
     end
 
     it '都道府県のidが1では保存できない' do
@@ -60,13 +60,13 @@ RSpec.describe PurchaseDeliveryInformation, type: :model do
     it '電話番号は12桁以上では保存できない' do
       @purchasedeliveryinformation.telephone_number = '090123456789'
       @purchasedeliveryinformation.valid?
-      expect(@purchasedeliveryinformation.errors.full_messages).to include("Telephone number within 11 digits")
+      expect(@purchasedeliveryinformation.errors.full_messages).to include('Telephone number within 11 digits')
     end
 
     it '電話番号は全角数字では保存できない' do
       @purchasedeliveryinformation.telephone_number = '０９０１２３４５６７８'
       @purchasedeliveryinformation.valid?
-      expect(@purchasedeliveryinformation.errors.full_messages).to include("Telephone number within 11 digits")
+      expect(@purchasedeliveryinformation.errors.full_messages).to include('Telephone number within 11 digits')
     end
 
     it 'トークンが空では保存できない' do

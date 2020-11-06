@@ -55,6 +55,6 @@ class ProductsController < ApplicationController
   end
 
   def get_product_ids
-    @product_ids = Purchase.pluck(:product_id) #Purchaseモデルからproduct_idだけを取得
+    @product_ids = Purchase.pluck(:product_id) # Purchaseモデルからproduct_idだけを取得
   end
 end
