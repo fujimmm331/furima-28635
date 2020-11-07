@@ -14,4 +14,5 @@ class User < ApplicationRecord
   validates_format_of :password, with: password_vali
 
   has_many :products
+  has_many :purchases
 end

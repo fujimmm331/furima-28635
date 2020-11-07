@@ -133,9 +133,11 @@
           <%= image_tag product.image, class: "item-img" %>
 
           <%# 商品が売れた場合sold outを表示 %>
+          <% if @product_ids.include?(product.id) %>
           <div class='sold-out'>
             <span>Sold Out!!</span>
           </div>
+          <% end %>
           <%# /商品が売れた場合、sold outを表示 %>
 
         </div>
