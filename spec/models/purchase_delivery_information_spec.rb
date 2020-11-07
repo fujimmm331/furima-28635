@@ -69,6 +69,12 @@ RSpec.describe PurchaseDeliveryInformation, type: :model do
       expect(@purchasedeliveryinformation.errors.full_messages).to include('Telephone number within 11 digits')
     end
 
+    it '電話番号はハイフンを含んでしまうと、保存できない' do
+      @purchasedeliveryinformation.telephone_number = '090-1234-5678'
+      @purchasedeliveryinformation.valid?
+      expect(@purchasedeliveryinformation.errors.full_messages).to include('Telephone number within 11 digits')
+    end
+
     it 'トークンが空では保存できない' do
       @purchasedeliveryinformation.token = ''
       @purchasedeliveryinformation.valid?
