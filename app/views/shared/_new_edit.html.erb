@@ -136,11 +136,19 @@
       </p>
     </div>
     <%# /注意書き %>
+    
     <%# 下部ボタン %>
+    <% if @product.id == nil %>
     <div class="sell-btn-contents">
       <%= f.submit "出品する" ,class:"sell-btn" %>
       <%=link_to 'もどる', root_path, class:"back-btn" %>
     </div>
+    <% else %>
+    <div class="sell-btn-contents">
+      <%= f.submit "変更する" ,class:"sell-btn" %>
+      <%=link_to 'もどる', root_path, class:"back-btn" %>
+    </div>
+    <% end %>
     <%# /下部ボタン %>
   </div>
   <% end %>
